@@ -7,8 +7,6 @@ const express = require('express');
 const router = express.Router();
 
 router.post('/', async (req, res) => {
-  // const { error } = validate(req.body); 
-  // if (error) return res.status(400).send(error.details[0].message);
 
     if (!req.headers.authorization || req.headers.authorization.indexOf('Basic ') === -1) {
       return res.status(401).json({ message: 'Missing Authorization Header' });
@@ -16,7 +14,6 @@ router.post('/', async (req, res) => {
   const base64Credentials =  req.headers.authorization.split(' ')[1];
   const credentials = Buffer.from(base64Credentials, 'base64').toString('ascii');
   const [username, password] = credentials.split(':');
-  console.log(username,password);
   try{
     let user = await User.findOne({ username: username });
     if (!user) return res.status(400).send('Invalid username or password.');
@@ -32,13 +29,5 @@ router.post('/', async (req, res) => {
   }
 });
 
-function validate(req) {
-  const schema = {
-    username: Joi.string().min(5).max(255).required(),
-    password: Joi.string().min(5).max(255).required()
-  };
-
-  return Joi.validate(req, schema);
-}
 
 module.exports = router; 

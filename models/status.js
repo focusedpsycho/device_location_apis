@@ -19,11 +19,11 @@ const statusSchema = new mongoose.Schema({
     loc: Array,
     speed: Number,
     course: String,
-    language: String
+    language: String,
+    device:String
 });
 
 const Status = mongoose.model('Status', statusSchema);
 
 
-exports.Status = Status;
-exports.validate = validateUser;
+module.exports = Status;

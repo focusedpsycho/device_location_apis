@@ -14,23 +14,15 @@ if (!config.get('jwtPrivateKey')) {
   process.exit(1);
 }
 
-mongoose.connect('mongodb+srv://backendconcoxdeveloper:V3jUV7QXqEoAtnhy@cluster0-zhjde.mongodb.net')
+mongoose.connect('mongodb+srv://backendconcoxdeveloper:V3jUV7QXqEoAtnhy@cluster0-zhjde.mongodb.net/__CONCOX__')
   .then(() => console.log('Connected to MongoDB...'))
   .catch(err => console.error('Could not connect to MongoDB...'));
 
-// var opt = {
-//   user: config.database.username,
-//   pass: config.database.password,
-//   auth: {
-//       authdb: 'admin'
-//   }
-// };
-// var connection = mongoose.createConnection(config.database.host, '__CONCOX__', config.database.port, opt);
 
 app.use(express.json());
-// app.use('/api/users', users);
-// app.use('/api/auth', authLogin);
-// app.use(authMiddleware);
+app.use('/api/users', users);
+app.use('/api/auth', authLogin);
+app.use(authMiddleware);
 app.use('/api/devices', devices);
 
 

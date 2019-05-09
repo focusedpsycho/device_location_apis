@@ -3,7 +3,7 @@ const config = require('config');
 
 module.exports = function (req, res, next) {
   let token = req.header('Authorization');
-  if (!token) return res.status(401).send('Access denied. No token provided.');
+  if (!token || (token.indexOf('Bearer') ===-1)) return res.status(401).send('Access denied. No token provided.');
   token = token.split(' ')[1];
   try {
     const decoded = jwt.verify(token, config.get('jwtPrivateKey'));
